@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/searchMain"
+        android:title="@string/search" />
+    <item
+        android:id="@+id/logoutMain"
+        android:title="@string/log_out" />
+</menu>

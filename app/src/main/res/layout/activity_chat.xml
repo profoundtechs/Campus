@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/chat_background"
+    tools:context="com.profoundtechs.campus.ChatActivity">
+
+    <include layout = "@layout/layout_app_bar"
+        android:id="@+id/toolbarChat"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlChatMain"
+        android:background="#DBF5F3"
+        android:layout_below="@+id/toolbarChat">
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/adChat"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llChatAd"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/rlChatMain"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srlChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/llChatAd"
+        android:layout_alignParentLeft="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvChatMessageList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbarChat"
+            android:layout_alignParentLeft="true">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dfdfdf"
+        android:layout_above="@+id/linearLayout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="10"
+        android:background="@android:color/white"
+        android:id="@+id/linearLayout">
+
+        <ImageButton
+            android:id="@+id/ibChatAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:padding="10dp"
+            android:src="@drawable/ic_add_black_24dp" />
+
+        <EditText
+            android:id="@+id/etChatMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:paddingBottom="12dp"
+            android:ems="10"
+            android:hint="@string/message"
+            android:background="@android:color/white"
+            android:inputType="textPersonName"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="14dp" />
+
+        <ImageButton
+            android:id="@+id/ibChatSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:padding="10dp"
+            android:src="@android:drawable/ic_menu_send" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Campus</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="new_account">Create New Account</string>
+    <string name="welcome_to_campus">Welcome to Campus</string>
+    <string name="login">Login</string>
+    <string name="log_out">Logout</string>
+    <string name="sign_in">Sign in to existing account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="display_name">Display Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_image">Change Image</string>
+    <string name="change_status">Change Status</string>=
+    <string name="send_friend_request">Send Friend Request</string>
+    <string name="decline_friend_request">Decline Friend Request</string>
+    <string name="user_default_status">No message</string>
+    <string name="last_seen">Last Seen</string>
+    <string name="message">Message</string>
+    <string name="search">Search</string>
+    <string name="no_active_users">No active users</string>
+    <string name="no_messages">No messages</string>
+    <string name="no_unanswered_requests">No unanswered requests</string>
+    <string name="no_friends_yet">No friends yet</string>
+    <string name="no_friend_list_detail">You have no friends yet. You can send friend request to any one in the all users list.</string>
+    <string name="university">General user</string>
+    <string name="not_yet_set">Not yet set</string>
+    <string name="description">These are additional settings. You can fill it later in account settings (you can also set a profile pic there) or even you can leave it blank.</string>
+    <string name="search_result_notification">No search results to display</string>
+    <string name="no_connection">No connection</string>
+    <string name="app_detail">This App connects university students, teachers and others in the academic world and outside. You can login
+    with existing account or easily create an account if you are new</string>
+</resources>

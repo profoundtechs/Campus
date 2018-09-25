@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/tvSingleMessageDate"
+            android:layout_width="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="August 15"
+            android:background="@drawable/message_date_background"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvSingleMessageSentBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="23dp"
+            android:maxWidth="240dp"
+            android:textColor="@android:color/white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/rounded_rectangle_1"
+            android:layout_margin="8dp"
+            android:text="Hello there"
+            android:textSize="16sp"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="8dp"
+            android:paddingEnd="23dp" />
+
+        <ImageView
+            android:id="@+id/ivDeliveryStatus"
+            android:layout_alignBottom="@+id/tvSingleMessageSentBody"
+            android:layout_alignRight="@+id/tvSingleMessageSentBody"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_message_unsent"
+            android:layout_alignEnd="@+id/tvSingleMessageSentBody" />
+
+        <TextView
+            android:id="@+id/tvSingleMessageSentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:40"
+            android:textSize="10sp"
+            android:layout_alignBottom="@+id/tvSingleMessageSentBody"
+            android:layout_toLeftOf="@+id/tvSingleMessageSentBody"
+            android:layout_toStartOf="@+id/tvSingleMessageSentBody" />
+
+        <TextView
+            android:id="@+id/tvSingleMessageReceivedBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:maxWidth="240dp"
+            android:textColor="@android:color/black"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/rounded_rectangle_2"
+            android:layout_margin="8dp"
+            android:text="I'm working it again"
+            android:textSize="16sp"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/tvSingleMessageReceivedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:40"
+            android:textSize="10sp"
+            android:layout_alignBottom="@+id/tvSingleMessageReceivedBody"
+            android:layout_toRightOf="@+id/tvSingleMessageReceivedBody"
+            android:layout_toEndOf="@+id/tvSingleMessageReceivedBody" />
+
+</RelativeLayout>

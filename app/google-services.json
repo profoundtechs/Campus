@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "886885456033",
+    "firebase_url": "https://campus-4a3a7.firebaseio.com",
+    "project_id": "campus-4a3a7",
+    "storage_bucket": "campus-4a3a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886885456033:android:b7b322ccf88c4619",
+        "android_client_info": {
+          "package_name": "com.profoundtechs.campus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886885456033-4ftv7vi78dnbie69rhds6jq6gld0h7tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.profoundtechs.campus",
+            "certificate_hash": "22f949ec872906607876e18d20e35d75b6570512"
+          }
+        },
+        {
+          "client_id": "886885456033-m641jfm8834n8lils7h5t12ksq0itv5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXvA_V4NYw1NLA3caLOTw75I92-z4WM2I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886885456033-m641jfm8834n8lils7h5t12ksq0itv5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
