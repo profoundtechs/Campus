@@ -1,20 +1,16 @@
 package com.profoundtechs.campus;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,7 +18,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -100,8 +95,10 @@ public class ActiveFragment extends Fragment {
                 if (connected){
 
                     //Shows the progressbar until the list loads
-                    rlNoConnection.setVisibility(View.INVISIBLE);
+                    rvActive.setVisibility(View.INVISIBLE);
                     rlActiveProgressbar.setVisibility(View.VISIBLE);
+                    activeRelativeLayout.setVisibility(View.INVISIBLE);
+                    rlNoConnection.setVisibility(View.INVISIBLE);
 
                     //Firebase recycler adapter
                     FirebaseRecyclerAdapter<Users,ActiveFragment.ActiveViewHolder> activeRecyclerViewAdapter=new FirebaseRecyclerAdapter<Users, ActiveViewHolder>(
@@ -158,21 +155,21 @@ public class ActiveFragment extends Fragment {
                                     startActivity(profileIntent);
                                 }
                             });
-
-                            //Displays the list if the list is not null, otherwise displays the no active user textview
-                            if (mUsersQuery!=null){
-                                rvActive.setVisibility(View.VISIBLE);
-                                rlActiveProgressbar.setVisibility(View.INVISIBLE);
-                                activeRelativeLayout.setVisibility(View.INVISIBLE);
-                                rlNoConnection.setVisibility(View.INVISIBLE);
-                            } else {
-                                rvActive.setVisibility(View.INVISIBLE);
-                                activeRelativeLayout.setVisibility(View.VISIBLE);
-                                rlActiveProgressbar.setVisibility(View.INVISIBLE);
-                                rlNoConnection.setVisibility(View.INVISIBLE);
-                            }
                         }
                     };
+
+                    //Displays the list if the list is not null, otherwise displays the no active user textview
+                    if (mUsersQuery!=null){
+                        rvActive.setVisibility(View.VISIBLE);
+                        rlActiveProgressbar.setVisibility(View.INVISIBLE);
+                        activeRelativeLayout.setVisibility(View.INVISIBLE);
+                        rlNoConnection.setVisibility(View.INVISIBLE);
+                    } else {
+                        rvActive.setVisibility(View.INVISIBLE);
+                        activeRelativeLayout.setVisibility(View.VISIBLE);
+                        rlActiveProgressbar.setVisibility(View.INVISIBLE);
+                        rlNoConnection.setVisibility(View.INVISIBLE);
+                    }
 
                     rvActive.setAdapter(activeRecyclerViewAdapter);
 

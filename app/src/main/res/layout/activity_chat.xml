@@ -78,8 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/white"
-            android:padding="10dp"
-            android:src="@drawable/ic_add_black_24dp" />
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/etChatMessage"

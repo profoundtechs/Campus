@@ -61,6 +61,7 @@ public class RequestsFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("2BC6E04CB887FA7970F7F0FF851B9EDB").build();
         adRequests.loadAd(adRequest);
 
+        //Initializing Firebase
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
 

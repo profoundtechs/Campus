@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private TextView tvNavMainRole;
 
     String name,university,role,department,level,dob;
+    private boolean connected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +168,22 @@ public class MainActivity extends AppCompatActivity
                         roleAt = dataSnapshot.child("role").getValue().toString() + " at " + university;
                     }
                     tvNavMainRole.setText(roleAt);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+            connectedRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    connected = dataSnapshot.getValue(Boolean.class);
+                    if (connected){
+                        mUserRef.child("online").setValue("true");
+                    }
                 }
 
                 @Override

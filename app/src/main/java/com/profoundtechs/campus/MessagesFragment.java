@@ -113,11 +113,13 @@ public class MessagesFragment extends Fragment {
                 lastMessageQuery.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        String data = dataSnapshot.child("message").getValue().toString();
-                        String seen = dataSnapshot.child("seen").getValue().toString();
-                        lastMessageFrom = dataSnapshot.child("from").getValue().toString();
-                        lastMessageFromCurrentUser = lastMessageFrom.equals(mCurrentUserId);
-                        viewHolder.setMessage(data,seen);
+                        if (dataSnapshot.hasChild("message")){
+                            String data = dataSnapshot.child("message").getValue().toString();
+                            String seen = dataSnapshot.child("seen").getValue().toString();
+                            lastMessageFrom = dataSnapshot.child("from").getValue().toString();
+                            lastMessageFromCurrentUser = lastMessageFrom.equals(mCurrentUserId);
+                            viewHolder.setMessage(data,seen);
+                        }
 
                         //Displaying number of unread messages
                         if (!lastMessageFromCurrentUser){

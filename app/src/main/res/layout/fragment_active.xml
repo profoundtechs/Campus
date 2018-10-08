@@ -34,7 +34,6 @@
             android:layout_below="@+id/rlActiveMain"/>
 
         <android.support.v7.widget.RecyclerView
-            android:visibility="invisible"
             android:id="@+id/rvActive"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

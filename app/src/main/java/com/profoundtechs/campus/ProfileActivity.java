@@ -107,18 +107,28 @@ public class ProfileActivity extends AppCompatActivity {
                 //Displaying values checking first if they are null
                 tvProfileDisplayName.setText(displayName);
                 tvProfileUniversity.setText(university);
-                if (!role.equals("General user")||!role.equals("Not yet set")){
-                    tvProfileRole.setText(role);
-                }
-                if (!department.equals("Not yet set")||!department.equals("General user")){
-                    tvProfileDepartment.setText(departmentFull);
-                }
-                if (!level.equals("Not yet set")||!level.equals("General user")){
-                    tvProfileLevel.setText(level);
-                }
-                //There may be a better condition than this
-                if (!dob.equals("Not yet set")||!dob.equals("")){
-                    tvProfileDob.setText(dobFull);
+                if (!university.equals("General user")){
+                    if (!role.equals("General user")&&!role.equals("Not yet set")){
+                        tvProfileRole.setText(role);
+                    } else {
+                        tvProfileRole.setText("No role given");
+                    }
+                    if (!department.equals("Not yet set")&&!department.equals("General user")){
+                        tvProfileDepartment.setText(departmentFull);
+                    } else {
+                        tvProfileDepartment.setText("No department given");
+                    }
+                    if (!level.equals("Not yet set")&&!level.equals("General user")){
+                        tvProfileLevel.setText(level);
+                    } else {
+                        tvProfileLevel.setText("No level given");
+                    }
+                    //There may be a better condition than this
+                    if (!dob.equals("Not yet set")&&!dob.equals("")){
+                        tvProfileDob.setText(dobFull);
+                    } else {
+                        tvProfileDob.setText("No date of birth given");
+                    }
                 }
                 Picasso.with(ProfileActivity.this).load(image).placeholder(R.drawable.default_image).into(ivProfilePic);
 
@@ -140,15 +150,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (reqType.equals("received")){
                                     mCurrentState="req_received";
                                     btnProfileSendFriendRequest.setText("Accept Friend Request");
-                                    btnProfileSendFriendRequest.setBackgroundColor(Color.BLUE);
 
                                     btnProfileDeclineFriendRequest.setVisibility(View.VISIBLE);
                                     btnProfileDeclineFriendRequest.setEnabled(true);
-                                    btnProfileDeclineFriendRequest.setBackgroundColor(Color.RED);
                                 } else if (reqType.equals("sent")){
                                     mCurrentState="req_sent";
                                     btnProfileSendFriendRequest.setText("Cancel Friend Request");
-                                    btnProfileSendFriendRequest.setBackgroundColor(Color.RED);
 
                                     btnProfileDeclineFriendRequest.setVisibility(View.INVISIBLE);
                                     btnProfileDeclineFriendRequest.setEnabled(false);
@@ -161,7 +168,6 @@ public class ProfileActivity extends AppCompatActivity {
                                         if (dataSnapshot.hasChild(user_id)){
                                             mCurrentState="friends";
                                             btnProfileSendFriendRequest.setText("Unfriend this Person");
-                                            btnProfileSendFriendRequest.setBackgroundColor(Color.RED);
 
                                             btnProfileDeclineFriendRequest.setVisibility(View.INVISIBLE);
                                             btnProfileDeclineFriendRequest.setEnabled(false);
@@ -216,7 +222,6 @@ public class ProfileActivity extends AppCompatActivity {
                             if (databaseError == null) {
                                 mCurrentState="req_sent";
                                 btnProfileSendFriendRequest.setText("Cancel Friend Request");
-                                btnProfileSendFriendRequest.setBackgroundColor(Color.RED);
 
                                 btnProfileDeclineFriendRequest.setVisibility(View.INVISIBLE);
                                 btnProfileDeclineFriendRequest.setEnabled(false);
@@ -243,7 +248,6 @@ public class ProfileActivity extends AppCompatActivity {
                             if (databaseError == null) {
                                 mCurrentState="not_friends";
                                 btnProfileSendFriendRequest.setText("Send Friend Request");
-                                btnProfileSendFriendRequest.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
                                 btnProfileDeclineFriendRequest.setVisibility(View.INVISIBLE);
                                 btnProfileDeclineFriendRequest.setEnabled(false);
@@ -278,7 +282,6 @@ public class ProfileActivity extends AppCompatActivity {
                             if (databaseError == null) {
                                 mCurrentState="friends";
                                 btnProfileSendFriendRequest.setText("Unfriend this Person");
-                                btnProfileSendFriendRequest.setBackgroundColor(Color.RED);
 
                                 btnProfileDeclineFriendRequest.setVisibility(View.INVISIBLE);
                                 btnProfileDeclineFriendRequest.setEnabled(false);
@@ -306,7 +309,6 @@ public class ProfileActivity extends AppCompatActivity {
                             if (databaseError == null) {
                                 mCurrentState="not_friends";
                                 btnProfileSendFriendRequest.setText("Send Friend Request");
-                                btnProfileSendFriendRequest.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
                                 btnProfileDeclineFriendRequest.setVisibility(View.INVISIBLE);
                                 btnProfileDeclineFriendRequest.setEnabled(false);
@@ -340,7 +342,6 @@ public class ProfileActivity extends AppCompatActivity {
                             if (databaseError == null) {
                                 mCurrentState="not_friends";
                                 btnProfileSendFriendRequest.setText("Send Friend Request");
-                                btnProfileSendFriendRequest.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
                                 btnProfileDeclineFriendRequest.setVisibility(View.INVISIBLE);
                                 btnProfileDeclineFriendRequest.setEnabled(false);

@@ -70,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
     private String mCurrentUserId;
 
     //Variables
-    private String mChatUser;
+    public static String mChatUser;
     private String userName;
     private MessageAdapter mAdapter;
     private final List<Messages> messagesList = new ArrayList<>();
@@ -79,8 +79,8 @@ public class ChatActivity extends AppCompatActivity {
     private int itemPos;
     private String mLastKey = "";
     private String mPrevKey = "";
-    private long prevMessageDate1;
-    private long prevMessageDate2;
+    long prevMessageDate[]=new long[2];
+//    private long prevMessageDate2;
 //    private static final int GALLERY_PICK = 1;
 //    private StorageReference mImageStorage;
 
@@ -206,50 +206,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        //Makes any unseen messages seen
-        final Query unseenMessagesQuery = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser)
-                .orderByChild("seen").equalTo("false");
-        unseenMessagesQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String key = null;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    //here is your every post 
-                    key = snapshot.getKey();
-                }
-
-                if (dataSnapshot.exists()&&dataSnapshot.child(key).child("from").getValue().toString().equals(mChatUser)){
-                    dataSnapshot.getRef().child(key).child("seen").setValue("true");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        final Query unseenMessagesQuery2 = mRootRef.child("Messages").child(mChatUser).child(mCurrentUserId)
-                .orderByChild("seen").equalTo("false");
-        unseenMessagesQuery2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String key = null;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    //here is your every post
-                    key = snapshot.getKey();
-                }
-
-                if (dataSnapshot.exists()&&dataSnapshot.child(key).child("from").getValue().toString().equals(mChatUser)){
-                    dataSnapshot.getRef().child(key).child("seen").setValue("true");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
         //This sends the message
         ibChatSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,6 +221,25 @@ public class ChatActivity extends AppCompatActivity {
                 mCurrentPage++;
                 itemPos=0;
                 loadMoreMessages();
+            }
+        });
+
+        //Getting date of the last two messages
+        Query lastMessageQuery = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser).limitToLast(2);
+        lastMessageQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i =0;
+                for (DataSnapshot data:dataSnapshot.getChildren()){
+                    String time = data.child("time").getValue().toString();
+                    prevMessageDate[i] = Long.parseLong(time);
+                    i++;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
@@ -373,103 +348,46 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         String message = etChatMessage.getText().toString();
 
-        //Getting the last message to display on the chat list
-        Query lastMessageQuery1 = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser).limitToLast(1);
-        lastMessageQuery1.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String time = dataSnapshot.child("time").getValue().toString();
-                prevMessageDate1 = Long.parseLong(time);
-//                prevMessageDate = prevDate.longValue();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
         //Check if the message edit text is not empty and send
         if (!TextUtils.isEmpty(message)) {
             String currentUserRef = "Messages/" + mCurrentUserId + "/" + mChatUser;
             String chatUserRef = "Messages/" + mChatUser + "/" + mCurrentUserId;
 
-            Map messageMap = new HashMap();
-            messageMap.put("message",message);
-            messageMap.put("seen", "false");
-            messageMap.put("type", "text");
-            messageMap.put("time", ServerValue.TIMESTAMP);
-            messageMap.put("from", mCurrentUserId);
+            Map messageMap1 = new HashMap();
+            messageMap1.put("type", "tempo");
+            messageMap1.put("time", ServerValue.TIMESTAMP);
 
             //Generate random key to reference for the message & date message and getting the push ids
             DatabaseReference userMessagePush1 = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser).push();
             String pushId1 = userMessagePush1.getKey();
 
             //This will prepare the message entry
-            Map messageUserMap = new HashMap();
-            messageUserMap.put(currentUserRef + "/" + pushId1,messageMap);
-            messageUserMap.put(chatUserRef + "/" + pushId1,messageMap);
-
-            //This will make the text input box empty after the message is sent
-            etChatMessage.setText("");
+            Map messageUserMap1 = new HashMap();
+            messageUserMap1.put(currentUserRef + "/" + pushId1,messageMap1);
+            messageUserMap1.put(chatUserRef + "/" + pushId1,messageMap1);
 
             //This will put the message entry to the database
-            mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    if (databaseError!=null){
-                        Toast.makeText(ChatActivity.this,databaseError.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+//            mRootRef.updateChildren(messageUserMap1, new DatabaseReference.CompletionListener() {
+//                @Override
+//                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//                    if (databaseError!=null){
+//                        Toast.makeText(ChatActivity.this,databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
 
-            //Getting the last message to display on the chat list for the new message
-            Query lastMessageQuery2 = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser).limitToLast(1);
-            lastMessageQuery2.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    String time = dataSnapshot.child("time").getValue().toString();
-                    prevMessageDate2 = Long.parseLong(time);
-                }
+            //Hash map for the main text message
+            Map messageMap2 = new HashMap();
+            messageMap2.put("message",message);
+            messageMap2.put("seen", "false");
+            messageMap2.put("type", "text");
+            messageMap2.put("time", ServerValue.TIMESTAMP);
+            messageMap2.put("from", mCurrentUserId);
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            Map messageUserMap2 = new HashMap();
 
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-            if (!DateFormat.getDateInstance(DateFormat.SHORT).format(prevMessageDate1)
-                    .equals(DateFormat.getDateInstance(DateFormat.SHORT).format(prevMessageDate2))){
+            if (!DateFormat.getDateInstance(DateFormat.SHORT).format(prevMessageDate[0])
+                    .equals(DateFormat.getDateInstance(DateFormat.SHORT).format(prevMessageDate[1]))){
 
                 Map dateMap = new HashMap();
                 dateMap.put("message","date");
@@ -485,27 +403,38 @@ public class ChatActivity extends AppCompatActivity {
                 String pushId2 = userMessagePush2.getKey();
 
                 //This will prepare the date and message entries
-                messageUserMap = new HashMap();
-                messageUserMap.put(currentUserRef + "/" + pushId1,null);
-                messageUserMap.put(chatUserRef + "/" + pushId1,null);
-                messageUserMap.put(currentUserRef + "/" + datePushId,dateMap);
-                messageUserMap.put(currentUserRef + "/" + pushId2,messageMap);
-                messageUserMap.put(chatUserRef + "/" + datePushId,dateMap);
-                messageUserMap.put(chatUserRef + "/" + pushId2,messageMap);
+//                messageUserMap2.put(currentUserRef + "/" + pushId1,null);
+//                messageUserMap2.put(chatUserRef + "/" + pushId1,null);
+                messageUserMap2.put(currentUserRef + "/" + datePushId,dateMap);
+                messageUserMap2.put(currentUserRef + "/" + pushId2,messageMap2);
+                messageUserMap2.put(chatUserRef + "/" + datePushId,dateMap);
+                messageUserMap2.put(chatUserRef + "/" + pushId2,messageMap2);
 
-                //This will make the text input box empty after the message is sent
-                etChatMessage.setText("");
+            } else {
 
-                //This will put the date and message entries to the database
-                mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        if (databaseError!=null){
-                            Toast.makeText(ChatActivity.this,databaseError.getMessage(),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                //Generate random key to reference for the message and getting the push id
+                DatabaseReference userMessagePush2 = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser).push();
+                String pushId2 = userMessagePush2.getKey();
+
+                //This will prepare the date and message entries
+                messageUserMap2.put(currentUserRef + "/" + pushId1,null);
+                messageUserMap2.put(chatUserRef + "/" + pushId1,null);
+                messageUserMap2.put(currentUserRef + "/" + pushId2,messageMap2);
+                messageUserMap2.put(chatUserRef + "/" + pushId2,messageMap2);
             }
+
+            //This will make the text input box empty after the message is sent
+            etChatMessage.setText("");
+
+            //This will put the date and message entries to the database
+            mRootRef.updateChildren(messageUserMap2, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                    if (databaseError!=null){
+                        Toast.makeText(ChatActivity.this,databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
@@ -518,5 +447,54 @@ public class ChatActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //Makes any unseen messages seen
+        final Query unseenMessagesQuery = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser)
+                .orderByChild("seen").equalTo("false");
+        unseenMessagesQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String key = null;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    //here is your every post
+                    key = snapshot.getKey();
+                }
+
+                if (dataSnapshot.exists()&&dataSnapshot.child(key).child("from").getValue().toString().equals(mChatUser)){
+//                    dataSnapshot.getRef().child(key).child("seen").setValue("true");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final Query unseenMessagesQuery2 = mRootRef.child("Messages").child(mChatUser).child(mCurrentUserId)
+                .orderByChild("seen").equalTo("false");
+        unseenMessagesQuery2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String key = null;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    //here is your every post
+                    key = snapshot.getKey();
+                }
+
+                if (dataSnapshot.exists()&&dataSnapshot.child(key).child("from").getValue().toString().equals(mChatUser)){
+//                    dataSnapshot.getRef().child(key).child("seen").setValue("true");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
