@@ -94,7 +94,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 }else {
                     progressDialogLogin.hide();
-                    Toast.makeText(LoginActivity.this, "Cannot sign in. Please check the form and try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login failed. " +
+                            task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -109,7 +109,8 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                 }else {
                     progressDialogRegister.hide();
-                    Toast.makeText(RegisterActivity.this, "Cannot sign in. Please check the form and try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Registration failed. " +
+                            task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

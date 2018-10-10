@@ -466,7 +466,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
 
                 if (dataSnapshot.exists()&&dataSnapshot.child(key).child("from").getValue().toString().equals(mChatUser)){
-//                    dataSnapshot.getRef().child(key).child("seen").setValue("true");
+                    dataSnapshot.getRef().child(key).child("seen").setValue("true");
                 }
             }
 
